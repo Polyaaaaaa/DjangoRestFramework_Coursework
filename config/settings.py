@@ -15,9 +15,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 
-
-
-
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -44,7 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "users",
-    "materials",
+    "habit_tracker",
     "django_filters",
     "rest_framework",
     "rest_framework_simplejwt",
@@ -60,13 +57,16 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ],
-    # 'DEFAULT_PAGINATION_CLASS': None,
+    'DEFAULT_PAGINATION_CLASS': 'habit_tracker.pagination.HabitPagination',
+    'PAGE_SIZE': 5,  # Значение по умолчанию
 }
 
 CELERY_BROKER_URL = "redis://localhost:6379/0"
 CELERY_TIMEZONE = "UTC"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -172,3 +172,5 @@ CACHES = {
         "LOCATION": "redis://127.0.0.1:6379/1",
     }
 }
+
+TELEGRAM_URL = 'https://api.telegram.org/bot'
