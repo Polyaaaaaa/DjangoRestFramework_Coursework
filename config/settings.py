@@ -172,5 +172,5 @@ CACHES = {
         "LOCATION": "redis://127.0.0.1:6379/1",
     }
 }
-
-TELEGRAM_URL = 'https://api.telegram.org/bot'
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+TELEGRAM_URL = os.getenv("TELEGRAM_URL")

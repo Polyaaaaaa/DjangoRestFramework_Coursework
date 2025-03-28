@@ -43,8 +43,3 @@ class Habit(models.Model):
         verbose_name = "Привычка"
         verbose_name_plural = "Привычки"
         ordering = ["user", "time"]
-
-
-# class TelegramUser(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     chat_id = models.CharField(max_length=50, unique=True)

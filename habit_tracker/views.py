@@ -4,6 +4,7 @@ from .models import Habit
 from .pagination import HabitPagination
 from .permissions import IsOwnerOrPublicReadOnly
 from .serializers import HabitSerializer
+from .services import send_telegram_message
 
 
 class HabitListView(ListAPIView):
@@ -53,6 +54,13 @@ class HabitCreateView(CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)  # Привязываем привычку к текущему пользователю
+        habit = serializer.save()
+        habit.user = self.request.user
+        habit = serializer.save()
+        habit.save()
+        print(habit)
+        if habit.user.tg_chat_id:
+            send_telegram_message(habit.user.tg_chat_id, "Создана новая привычка!")
 
 
 class HabitDetailView(RetrieveUpdateDestroyAPIView):
